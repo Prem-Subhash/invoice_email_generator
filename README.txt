@@ -54,7 +54,7 @@ Create .env file with:
 
 SMTP_SERVER=mail.slnsolution.com
 SMTP_PORT=465
-EMAIL_ADDRESS=your_email@slnsolution.com
+EMAIL_ADDRESS=your_email@slnsolution.com #For sending Invoice sender mail ID 
 EMAIL_PASSWORD=your_password
 
 ========================================
@@ -105,6 +105,16 @@ Logs:
 logs.txt
 
 ========================================
+How to Run in another machine or system 
+On another system:
+
+python -m venv venv
+
+then:
+
+pip install -r requirements.txt
+
+Now project becomes fully runnable.
 
 NOTES
 ----------------------------------------
