@@ -1,0 +1,132 @@
+
+[2026-05-19 22:05:21.058501] SUCCESS - Email Sent To: premsubhash2004@gmail.com
+[2026-05-19 22:05:26.275712] SUCCESS - Email Sent To: raghuroyal779@gmail.com
+[2026-05-19 22:12:05.550450] SUCCESS - Email Sent To: premsubhash2004@gmail.com
+[2026-05-19 22:12:07.999234] SUCCESS - Email Sent To: raghuroyal779@gmail.com
+
+==================================================
+TIME: 2026-05-19 22:21:05.486882
+STATUS: SUCCESS
+TO: premsubhash2004@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-19 22:21:07.945496
+STATUS: SUCCESS
+TO: raghuroyal779@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-19 22:39:26.684469
+STATUS: SUCCESS
+TO: premsubhash2004@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem_April_20260519.pdf
+STORAGE: invoices\2026\April\Invoice_Srikanth Mannem_April_20260519.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-19 22:39:32.729640
+STATUS: SUCCESS
+TO: raghuroyal779@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem_April_20260519.pdf
+STORAGE: invoices\2026\April\Invoice_Srikanth Mannem_April_20260519.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-20 09:30:09.347253
+STATUS: SUCCESS
+TO: premsubhash2004@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem_April_20260520.pdf
+STORAGE: invoices\2026\April\Invoice_Srikanth Mannem_April_20260520.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-20 09:30:13.292121
+STATUS: SUCCESS
+TO: raghuroyal779@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem_April_20260520.pdf
+STORAGE: invoices\2026\April\Invoice_Srikanth Mannem_April_20260520.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-20 09:34:20.521646
+STATUS: SUCCESS
+TO: premsubhash2004@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem_April_20260520.pdf
+STORAGE: invoices\2026\April\Invoice_Srikanth Mannem_April_20260520.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-20 09:34:25.132950
+STATUS: SUCCESS
+TO: raghuroyal779@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem_April_20260520.pdf
+STORAGE: invoices\2026\April\Invoice_Srikanth Mannem_April_20260520.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-20 09:39:26.197079
+STATUS: SUCCESS
+TO: premsubhash2004@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem_April_20260520.pdf
+STORAGE: invoices\2026\April\Invoice_Srikanth Mannem_April_20260520.pdf
+==================================================
+
+
+
+==================================================
+TIME: 2026-05-20 09:39:30.109814
+STATUS: SUCCESS
+TO: raghuroyal779@gmail.com
+RESOURCE: Srikanth Mannem
+MONTH: April
+AMOUNT: $12320
+PDF: Invoice_Srikanth Mannem_April_20260520.pdf
+STORAGE: invoices\2026\April\Invoice_Srikanth Mannem_April_20260520.pdf
+==================================================
+
