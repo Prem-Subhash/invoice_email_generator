@@ -123,7 +123,7 @@ for index, row in df.iterrows():
     # INVOICE NUMBER
     # ==========================================
 
-    invoice_number = f"SLN{invoice_counter}"
+    invoice_number = f"SLN{invoice_counter:05d}"
 
     invoice_counter += 1
 
@@ -183,8 +183,8 @@ for index, row in df.iterrows():
         LOGO_PATH,
         235,
         720,
-        width=140,
-        height=60,
+        width=160,
+        height=70,
         preserveAspectRatio=True,
         mask='auto'
     )
@@ -249,9 +249,9 @@ for index, row in df.iterrows():
     # TO / SHIP TO BOXES
     # ==========================================
 
-    c.rect(40, 490, 250, 100)
+    c.rect(40, 480, 250, 110)
 
-    c.rect(290, 490, 250, 100)
+    c.rect(290, 480, 250, 110)
 
     # LEFT BOX
 
@@ -311,47 +311,56 @@ for index, row in df.iterrows():
 
     table_y = 445
 
-    c.rect(40, table_y, 500, 45)
+    col0 = 40
+    col1 = 230
+    col2 = 290
+    col3 = 360
+    col4 = 480
+    col5 = 540
 
-    c.line(130, table_y, 130, table_y + 45)
+    table_height = 35
 
-    c.line(200, table_y, 200, table_y + 45)
+    header_y = table_y + 24
+    value_y = table_y + 8
 
-    c.line(310, table_y, 310, table_y + 45)
+    c.rect(col0, table_y, col5 - col0, table_height)
 
-    c.line(430, table_y, 430, table_y + 45)
+    c.line(col1, table_y, col1, table_y + table_height)
+    c.line(col2, table_y, col2, table_y + table_height)
+    c.line(col3, table_y, col3, table_y + table_height)
+    c.line(col4, table_y, col4, table_y + table_height)
 
     # HEADERS
 
-    c.setFont("Helvetica-Bold", 8)
+    c.setFont("Helvetica-Bold", 7)
 
-    c.drawString(
-        50,
-        475,
+    c.drawCentredString(
+        (col0 + col1) / 2.0,
+        header_y,
         "PERIOD OF SERVICES"
     )
 
-    c.drawString(
-        145,
-        475,
+    c.drawCentredString(
+        (col1 + col2) / 2.0,
+        header_y,
         "P.O. NUMBER"
     )
 
-    c.drawString(
-        220,
-        475,
+    c.drawCentredString(
+        (col2 + col3) / 2.0,
+        header_y,
         "REQUISITIONER"
     )
 
-    c.drawString(
-        320,
-        475,
-        "SHIPPED VIA email to"
+    c.drawCentredString(
+        (col3 + col4) / 2.0,
+        header_y,
+        "SHIPPED VIA EMAIL TO"
     )
 
-    c.drawString(
-        450,
-        475,
+    c.drawCentredString(
+        (col4 + col5) / 2.0,
+        header_y,
         "TERMS"
     )
 
@@ -359,29 +368,29 @@ for index, row in df.iterrows():
 
     c.setFont("Helvetica", 7)
 
-    c.drawString(
-        50,
-        455,
-        f"{month.upper()} HOURS"
+    c.drawCentredString(
+        (col0 + col1) / 2.0,
+        value_y,
+        f"{month.upper()} {total_hours} HRS FOR ${bill_rate:,.0f}"
     )
 
-    c.drawString(
-        220,
-        455,
-        resource_name
+    c.drawCentredString(
+        (col2 + col3) / 2.0,
+        value_y,
+        resource_name[:12]
     )
 
-    email_text = vendor_email[:22]
+    email_text = vendor_email[:25]
 
-    c.drawString(
-        320,
-        455,
+    c.drawCentredString(
+        (col3 + col4) / 2.0,
+        value_y,
         email_text
     )
 
-    c.drawString(
-        455,
-        455,
+    c.drawCentredString(
+        (col4 + col5) / 2.0,
+        value_y,
         "Due on receipt"
     )
 
@@ -395,7 +404,7 @@ for index, row in df.iterrows():
 
     c.line(40, main_y + 80, 540, main_y + 80)
 
-    c.line(170, main_y, 170, main_y + 110)
+    c.line(200, main_y, 200, main_y + 110)
 
     c.line(430, main_y, 430, main_y + 110)
 
@@ -403,20 +412,20 @@ for index, row in df.iterrows():
 
     c.setFont("Helvetica-Bold", 9)
 
-    c.drawString(
-        80,
+    c.drawCentredString(
+        120,
         main_y + 90,
         "QUANTITY"
     )
 
-    c.drawString(
-        250,
+    c.drawCentredString(
+        315,
         main_y + 90,
         "Project Details"
     )
 
-    c.drawString(
-        455,
+    c.drawCentredString(
+        485,
         main_y + 90,
         "TOTAL"
     )
@@ -436,7 +445,7 @@ for index, row in df.iterrows():
         )
 
         c.drawString(
-            55,
+            60,
             week_y,
             week_text
         )
@@ -449,14 +458,14 @@ for index, row in df.iterrows():
 
     c.setFont("Helvetica-Bold", 10)
 
-    c.drawString(
-        215,
+    c.drawCentredString(
+        315,
         main_y + 45,
         f"IT SERVICES FOR {resource_name.upper()}"
     )
 
-    c.drawString(
-        255,
+    c.drawCentredString(
+        315,
         main_y + 30,
         f"{month.upper()} MONTH"
     )
@@ -465,11 +474,11 @@ for index, row in df.iterrows():
     # TOTAL AMOUNT
     # ==========================================
 
-    c.setFont("Helvetica-Bold", 12)
+    c.setFont("Helvetica-Bold", 16)
 
-    c.drawString(
-        445,
-        main_y + 35,
+    c.drawCentredString(
+        485,
+        main_y + 40,
         f"${invoice_amount:,.2f}"
     )
 
@@ -482,9 +491,16 @@ for index, row in df.iterrows():
     c.rect(40, payment_y, 500, 120)
 
     c.line(
-        210,
+        190,
         payment_y,
-        210,
+        190,
+        payment_y + 120
+    )
+
+    c.line(
+        360,
+        payment_y,
+        360,
         payment_y + 120
     )
 
@@ -493,7 +509,7 @@ for index, row in df.iterrows():
     c.setFont("Helvetica-Bold", 8)
 
     c.drawString(
-        50,
+        45,
         270,
         "Check Details:"
     )
@@ -501,29 +517,29 @@ for index, row in df.iterrows():
     c.setFont("Helvetica", 8)
 
     c.drawString(
-        50,
+        45,
         250,
         COMPANY_NAME
     )
 
     c.drawString(
-        50,
+        45,
         238,
         "470 Olde Worthington Rd"
     )
 
     c.drawString(
-        50,
+        45,
         226,
         "Suite 200 Westerville OH 43082"
     )
 
-    # RIGHT SIDE
+    # MIDDLE SIDE (WIRE)
 
     c.setFont("Helvetica-Bold", 8)
 
     c.drawString(
-        230,
+        195,
         270,
         "Wire"
     )
@@ -531,65 +547,71 @@ for index, row in df.iterrows():
     c.setFont("Helvetica", 8)
 
     c.drawString(
-        230,
+        195,
         250,
         "Payee Name: SLN Solution LLC"
     )
 
     c.drawString(
-        230,
+        195,
         238,
         "Account Number: 374006933920"
     )
 
     c.drawString(
-        230,
+        195,
         226,
         "Routing Number: 071214579"
     )
 
     c.drawString(
-        230,
+        195,
         214,
         "Wire: 026009593"
     )
 
-    # TOTALS
+    # SUBTOTAL
 
-    c.setFont("Helvetica-Bold", 10)
+    c.setFont("Helvetica-Bold", 11)
 
     c.drawString(
-        430,
+        370,
         250,
         "SUBTOTAL"
     )
 
-    c.drawString(
-        495,
+    c.drawRightString(
+        530,
         250,
         f"${invoice_amount:,.2f}"
     )
 
+    # SALES TAX
+
     c.drawString(
-        430,
-        230,
+        370,
+        225,
         "SALES TAX"
     )
 
-    c.drawString(
-        500,
-        230,
+    c.drawRightString(
+        530,
+        225,
         "$0.00"
     )
 
-    c.drawString(
-        430,
-        190,
-        "TOTAL due"
-    )
+    # TOTAL DUE
+
+    c.setFont("Helvetica-Bold", 14)
 
     c.drawString(
-        495,
+        370,
+        190,
+        "TOTAL DUE"
+    )
+
+    c.drawRightString(
+        530,
         190,
         f"${invoice_amount:,.2f}"
     )
@@ -598,59 +620,54 @@ for index, row in df.iterrows():
     # FOOTER
     # ==========================================
 
-    c.line(40, 160, 540, 160)
+c.line(40, 150, 540, 150)
 
-    c.setFont("Helvetica", 7)
+c.setFont("Helvetica", 7)
 
-    c.drawString(
-        45,
-        145,
-        "If you have any questions concerning this invoice,"
-    )
+c.drawString(
+    45,
+    145,
+    "If you have any questions concerning this invoice,"
+)
 
-    c.drawString(
-        45,
-        135,
-        f"please contact {CONTACT_EMAIL}"
-    )
+c.drawString(
+    45,
+    135,
+    f"please contact {CONTACT_EMAIL}"
+)
 
-    c.drawString(
-        45,
-        125,
-        f"Phone: {CONTACT_PHONE}"
-    )
+c.drawString(
+    45,
+    125,
+    f"Phone: {CONTACT_PHONE}"
+)
 
-    # ==========================================
-    # THANK YOU
-    # ==========================================
+# ==========================================
+# THANK YOU
+# ==========================================
 
-    c.setFont("Helvetica-Bold", 16)
+c.setFont("Helvetica-Bold", 18)
 
-    c.setFillColor(colors.darkblue)
+c.setFillColor(colors.darkblue)
 
-    c.drawCentredString(
-        300,
-        60,
-        "Thank you for your business!"
-    )
+c.drawCentredString(
+    300,
+    55,
+    "Thank you for your business!"
+)
 
-    # ==========================================
-    # SAVE PDF
-    # ==========================================
+# ==========================================
+# SAVE PDF
+# ==========================================
 
-    c.save()
+c.save()
 
-    # ==========================================
-    # SEND EMAIL
-    # ==========================================
-
-    if vendor_email == "" or vendor_email.lower() == "nan":
+if vendor_email == "" or vendor_email.lower() == "nan":
 
         print("Skipped Empty Vendor Email")
 
-        continue
-
-    try:
+        pass
+try:
 
         msg = EmailMessage()
 
@@ -714,13 +731,11 @@ SLN Solution LLC
 
         print(f"Email Sent To: {vendor_email}")
 
-    except Exception as e:
+except Exception as e:
 
         print(f"Failed Sending To: {vendor_email}")
 
         print(e)
-
-        # FAILURE LOG
 
         with open("logs.txt", "a") as log:
 
@@ -730,14 +745,12 @@ SLN Solution LLC
                 f"{str(e)}"
             )
 
-    print("\n================================")
+print("\n================================")
 
-    print("Professional Invoice Generated")
+print("Professional Invoice Generated")
 
-    print(f"Invoice Number: {invoice_number}")
+print(f"Invoice Number: {invoice_number}")
 
-    print(f"PDF Saved At: {pdf_file}")
+print(f"PDF Saved At: {pdf_file}")
 
-    print("================================")
-
-print("\nAll invoices processed successfully!")
+print("================================")
