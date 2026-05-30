@@ -1,2 +1,4 @@
+invoices/
+logs.txt
 .env
 venv/
