@@ -111,8 +111,9 @@ for index, row in df.iterrows():
         row['Bill rate']
     )
 
-    invoice_amount = float(
-        row['Invoice Amount']
+    invoice_amount =  round(
+        total_hours * bill_rate,
+        2
     )
 
     vendor_address = str(
@@ -327,13 +328,13 @@ for index, row in df.iterrows():
 
     c.line(200, table_y, 200, table_y + 45)
 
-    c.line(310, table_y, 310, table_y + 45)
+    c.line(290, table_y, 290, table_y + 45)
 
-    c.line(430, table_y, 430, table_y + 45)
+    c.line(450, table_y, 450, table_y + 45)
 
     # HEADERS
 
-    c.setFont("Helvetica-Bold", 8)
+    c.setFont("Helvetica-Bold", 7)
 
     c.drawString(
         50,
@@ -354,7 +355,7 @@ for index, row in df.iterrows():
     )
 
     c.drawString(
-        320,
+        300,
         475,
         "SHIPPED VIA email to"
     )
@@ -367,7 +368,7 @@ for index, row in df.iterrows():
 
     # VALUES
 
-    c.setFont("Helvetica", 7)
+    c.setFont("Helvetica", 6)
 
     c.drawString(
         50,
@@ -384,7 +385,7 @@ for index, row in df.iterrows():
     email_text = vendor_email
 
     c.drawString(
-        320,
+        295,
         455,
         email_text
     )
@@ -435,7 +436,7 @@ for index, row in df.iterrows():
     # WEEKLY HOURS
     # ==========================================
 
-    c.setFont("Helvetica-Bold", 8)
+    c.setFont("Helvetica-Bold", 7)
 
     week_y = main_y + 65
 
@@ -446,7 +447,7 @@ for index, row in df.iterrows():
         )
 
         c.drawString(
-            55,
+            45,
             week_y,
             week_text
         )
@@ -575,7 +576,7 @@ for index, row in df.iterrows():
     )
 
     c.drawString(
-        495,
+        490,
         250,
         f"${invoice_amount:,.2f}"
     )
@@ -587,7 +588,7 @@ for index, row in df.iterrows():
     )
 
     c.drawString(
-        500,
+        490,
         230,
         "$0.00"
     )
@@ -599,7 +600,7 @@ for index, row in df.iterrows():
     )
 
     c.drawString(
-        495,
+        490,
         190,
         f"${invoice_amount:,.2f}"
     )
