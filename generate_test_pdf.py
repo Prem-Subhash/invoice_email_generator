@@ -1,191 +1,51 @@
 import os
-import smtplib
 import pandas as pd
-
 from datetime import datetime
-from dotenv import load_dotenv
-
-from email.message import EmailMessage
-
-from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
-# ==========================================
-# LOAD ENV VARIABLES
-# ==========================================
-
-load_dotenv()
-
-SMTP_SERVER = os.getenv("SMTP_SERVER")
-SMTP_PORT = int(os.getenv("SMTP_PORT"))
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-
-# ==========================================
-# COMPANY DETAILS
-# ==========================================
-
 COMPANY_NAME = "SLN Solution LLC"
-
-CONTACT_EMAIL = "invoices@slnsolution.com"
-
-CONTACT_PHONE = "+1 804-300-6869"
-
-# ==========================================
-# LOGO PATH
-# ==========================================
-
+CONTACT_EMAIL = "srikanth@sln-solutions.com"
+CONTACT_PHONE = "+1 804-304-6616"
 LOGO_PATH = "assets/sln_logo.png"
 
-# ==========================================
-# READ EXCEL FILE
-# ==========================================
-
 df = pd.read_excel("excel/Invoice_Data.xlsx")
-
-# ==========================================
-# CREATE STORAGE
-# ==========================================
-
-os.makedirs("invoices", exist_ok=True)
-
-# ==========================================
-# INVOICE COUNTER
-# ==========================================
+os.makedirs("test_invoices", exist_ok=True)
 
 invoice_counter = 1
 
-# ==========================================
-# SPLIT WEEKLY HOURS
-# ==========================================
-
 def split_hours(total_hours):
-
     weekly_hours = []
-
     while total_hours > 40:
-
         weekly_hours.append(40)
-
         total_hours -= 40
-
     if total_hours > 0:
-
         weekly_hours.append(total_hours)
-
     return weekly_hours
 
-# ==========================================
-# PROCESS EACH ROW
-# ==========================================
-
 for index, row in df.iterrows():
-
-    # ==========================================
-    # BASIC DATA
-    # ==========================================
-
-    resource_name = str(
-        row[' Resource Name']
-    ).strip()
-
-    vendor_name = str(
-        row['Vendor Name']
-    ).strip()
-
-    vendor_email = str(
-        row['Vendor Email']
-    ).strip()
-
-    month = str(
-        row['Month']
-    ).strip()
-
-    total_hours = int(
-        row['No of Hours ']
-    )
-
-    bill_rate = float(
-        row['Bill rate']
-    )
-
-    invoice_amount =  round(
-        total_hours * bill_rate,
-        2
-    )
-
-    vendor_address = str(
-        row['Vendor address']
-    ).strip()
-
-    period_of_services = str(
-        row['Period Of Services']
-    ).strip()
+    resource_name = str(row[' Resource Name']).strip()
+    vendor_name = str(row['Vendor Name']).strip()
+    vendor_email = str(row['Vendor Email']).strip()
+    month = str(row['Month']).strip()
+    total_hours = int(row['No of Hours '])
+    bill_rate = float(row['Bill rate'])
+    invoice_amount = round(total_hours * bill_rate, 2)
+    vendor_address = str(row['Vendor address']).strip()
+    period_of_services = str(row['Period Of Services']).strip()
     if period_of_services.lower() == 'nan':
         period_of_services = ""
-
-    # ==========================================
-    # INVOICE NUMBER
-    # ==========================================
-
     invoice_number = f"SLN{invoice_counter:04d}"
-
     invoice_counter += 1
-
-    # ==========================================
-    # WEEKLY HOURS SPLIT
-    # ==========================================
-
     weekly_hours = split_hours(total_hours)
 
-    # ==========================================
-    # CREATE YEAR/MONTH FOLDER
-    # ==========================================
+    pdf_filename = f"test_{vendor_name}_{resource_name}_{month}_{index}.pdf"
+    pdf_file = os.path.join("test_invoices", pdf_filename)
 
-    current_year = datetime.now().strftime("%Y")
-
-    invoice_folder = os.path.join(
-        "invoices",
-        current_year,
-        month
-    )
-
-    os.makedirs(invoice_folder, exist_ok=True)
-
-    # ==========================================
-    # PDF FILE NAME
-    # ==========================================
-
-    
-    
-    pdf_filename = (
-    f"Invoice_SLN_"
-    f"{vendor_name}_"
-    f"{resource_name}_"
-    f"{month}.pdf"
-   )
-
-    pdf_file = os.path.join(
-        invoice_folder,
-        pdf_filename
-    )
-    # ==========================================
-    # DUPLICATE CHECK
-    # ==========================================
-
-    if os.path.exists(pdf_file):
-        print(
-            f"Skipped - Already Processed: {pdf_filename}"
-        )
-        
-        continue
-
-    # ==========================================
-    # CREATE PDF
-    # ==========================================
-
+    # We set margins of 56pt on left and right, so printable width is exactly 500pt (612 - 56 - 56 = 500).
+    # Top and bottom margins are set to 40pt.
     doc = SimpleDocTemplate(
         pdf_file,
         pagesize=letter,
@@ -209,6 +69,15 @@ for index, row in df.iterrows():
         spaceAfter=15
     )
 
+    company_name_style = ParagraphStyle(
+        'CompanyName',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=10,
+        leading=13,
+        textColor=colors.HexColor('#000000')
+    )
+
     company_address_style = ParagraphStyle(
         'CompanyAddress',
         parent=styles['Normal'],
@@ -226,6 +95,26 @@ for index, row in df.iterrows():
         leading=14,
         alignment=2, # Right
         textColor=colors.HexColor('#000000')
+    )
+
+    box_header_style = ParagraphStyle(
+        'BoxHeader',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=10,
+        leading=12,
+        textColor=colors.HexColor('#000000')
+    )
+
+    box_name_style = ParagraphStyle(
+        'BoxName',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=10,
+        leading=13,
+        textColor=colors.HexColor('#000000'),
+        spaceBefore=4,
+        spaceAfter=2
     )
 
     box_body_style = ParagraphStyle(
@@ -301,6 +190,16 @@ for index, row in df.iterrows():
         leading=14,
         alignment=1, # Center
         textColor=colors.HexColor('#000000')
+    )
+
+    payment_label_style = ParagraphStyle(
+        'PaymentLabel',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=8,
+        leading=11,
+        textColor=colors.HexColor('#000000'),
+        alignment=0 # Left
     )
 
     payment_value_style = ParagraphStyle(
@@ -422,6 +321,7 @@ for index, row in df.iterrows():
         box_body_style
     )
     
+    # We style these to share a middle border by using a grid style on the Table
     to_ship_table = Table([[to_p, ship_to_p]], colWidths=[250, 250])
     to_ship_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#888888')),
@@ -559,118 +459,4 @@ for index, row in df.iterrows():
     story.append(Paragraph("Thank you for your business!", thank_you_style))
 
     doc.build(story)
-
-    # ==========================================
-    # SEND EMAIL
-    # ==========================================
-
-    if vendor_email == "" or vendor_email.lower() == "nan":
-
-        print("Skipped Empty Vendor Email")
-
-        continue
-
-    try:
-
-        msg = EmailMessage()
-        msg['Subject'] = (
-            f"{resource_name} - SLN Solution LLC - Invoice {invoice_number} - {month}"
-        )
-        
-
-        msg['From'] = EMAIL_ADDRESS
-
-        # Support multiple comma-separated email addresses, trimming unnecessary spaces
-        msg['To'] = ", ".join(email.strip() for email in vendor_email.split(",") if email.strip())
-
-        msg.set_content(f"""
-                        
-Dear Team,
-
-Please find attached invoice for services rendered during {month}.
-
-Invoice Number: {invoice_number}
-
-If you have any questions regarding this invoice, please feel free to contact us.
-
-Thank's for your support.
-
-Regards,
-
-SLN Solution LLC
-470 Olde Worthington Rd Suite 200
-Westerville OH 43082
-
-Email: {CONTACT_EMAIL}
-Phone: {CONTACT_PHONE}
-""")                        
-
-
-        # ATTACH PDF
-
-        with open(pdf_file, "rb") as f:
-
-            file_data = f.read()
-
-            file_name = os.path.basename(pdf_file)
-
-        msg.add_attachment(
-            file_data,
-            maintype="application",
-            subtype="pdf",
-            filename=file_name
-        )
-
-        # SEND EMAIL
-
-        with smtplib.SMTP_SSL(
-            SMTP_SERVER,
-            SMTP_PORT
-        ) as smtp:
-
-            smtp.login(
-                EMAIL_ADDRESS,
-                EMAIL_PASSWORD
-            )
-
-            smtp.send_message(msg)
-
-        # SUCCESS LOG
-
-        with open("logs.txt", "a") as log:
-
-            log.write(
-                f"\n[{datetime.now()}] "
-                f"SUCCESS - {vendor_email} - "
-                f"{invoice_number}"
-            )
-
-        print(f"Email Sent To: {vendor_email}")
-
-    except Exception as e:
-
-        print(f"Failed Sending To: {vendor_email}")
-
-        print(e)
-
-        # FAILURE LOG
-
-        with open("logs.txt", "a") as log:
-
-            log.write(
-                f"\n[{datetime.now()}] "
-                f"FAILED - {vendor_email} - "
-                f"{str(e)}"
-            )
-
-    print("\n================================")
-
-    print("Professional Invoice Generated")
-
-    print(f"Invoice Number: {invoice_number}")
-
-    print(f"PDF Saved At: {pdf_file}")
-
-    print("================================")
-
-print("\nAll invoices processed successfully!")
+    print(f"Generated: {pdf_file}")
